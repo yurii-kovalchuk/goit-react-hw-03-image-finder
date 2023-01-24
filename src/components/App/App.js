@@ -40,7 +40,6 @@ export class App extends Component {
           per_page: '12',
         },
       });
-      this.setState({ loader: false });
       const { hits, total } = response.data;
       if (total === 0) {
         alert('There no pictures whith this name');
@@ -52,13 +51,15 @@ export class App extends Component {
       }));
     } catch (error) {
       alert(error);
+    } finally {
+      this.setState({ loader: false });
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      this.fetchGallery(query, page);
+      await this.fetchGallery(query, page);
     }
   }
 
