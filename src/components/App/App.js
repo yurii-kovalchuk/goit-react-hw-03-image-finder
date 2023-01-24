@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'components/Button/Button';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
@@ -17,6 +18,9 @@ export class App extends Component {
   };
 
   handleSubmit = query => {
+    if (this.state.query === query) {
+      return;
+    }
     this.setState({ pictures: [], query, page: 1, total: 0 });
   };
 
@@ -42,7 +46,7 @@ export class App extends Component {
       });
       const { hits, total } = response.data;
       if (total === 0) {
-        alert('There no pictures whith this name');
+        toast('There are no pictures with this name');
         return;
       }
       this.setState(state => ({
@@ -50,7 +54,8 @@ export class App extends Component {
         total,
       }));
     } catch (error) {
-      alert(error);
+      toast(error.message);
+      console.log(error);
     } finally {
       this.setState({ loader: false });
     }
@@ -71,6 +76,7 @@ export class App extends Component {
         <ImageGallery pictures={pictures} />
         {loader && <Loader />}
         {total - page * 12 > 12 && <Button onClick={this.handleClick} />}
+        <ToastContainer />
       </AppWrapper>
     );
   }

@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   SearchWrapper,
   SearchBtn,
@@ -12,7 +14,7 @@ export const Searchbar = ({ onSubmit }) => {
     const value = e.target.elements.name.value.trim();
 
     if (value === '') {
-      alert('Please fills in field');
+      toast('Please fills in field');
       return;
     }
 
@@ -33,6 +35,7 @@ export const Searchbar = ({ onSubmit }) => {
           placeholder="Search images and photos"
         />
       </SearchForm>
+      <ToastContainer />
     </SearchWrapper>
   );
 };

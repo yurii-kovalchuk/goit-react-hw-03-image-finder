@@ -7,22 +7,36 @@ export class ImageGalleryItem extends Component {
     modal: false,
   };
 
-  toggleModal = () => {
-    this.setState(state => ({
-      modal: !state.modal,
-    }));
+  // toggleModal = () => {
+  //   this.setState(state => ({
+  //     modal: !state.modal,
+  //   }));
+  // };
+
+  modalOpen = () => {
+    this.setState({
+      modal: true,
+    });
+  };
+
+  modalClose = () => {
+    this.setState({
+      modal: false,
+    });
   };
 
   render() {
     const { webformatURL, largeImageURL, tags } = this.props.item;
     const { modal } = this.state;
     return (
-      <GalleryItem onClick={this.toggleModal}>
-        <GalleryItemImage src={webformatURL} alt={tags} />
+      <>
+        <GalleryItem onClick={this.modalOpen}>
+          <GalleryItemImage src={webformatURL} alt={tags} />
+        </GalleryItem>
         {modal && (
-          <Modal src={largeImageURL} alt={tags} onClose={this.toggleModal} />
+          <Modal src={largeImageURL} alt={tags} onClose={this.modalClose} />
         )}
-      </GalleryItem>
+      </>
     );
   }
 }
