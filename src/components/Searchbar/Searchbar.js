@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -38,4 +39,8 @@ export const Searchbar = ({ onSubmit }) => {
       <ToastContainer />
     </SearchWrapper>
   );
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
